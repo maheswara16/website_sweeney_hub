@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perencanaan Bisnis Kewirausahaan 1 - Sweeney Gaming Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#08090d',
+                            card: '#10141e',
+                            border: '#1f293d',
+                            cyan: '#00f0ff',
+                            magenta: '#ff0055',
+                            purple: '#7000ff',
+                            neonGreen: '#00ff66'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 15px rgba(0, 240, 255, 0.4)',
+                        'neon-magenta': '0 0 15px rgba(255, 0, 85, 0.4)',
+                        'neon-purple': '0 0 20px rgba(112, 0, 255, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Gaming Scrollbar & Glow Effects */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #08090d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+        
+        .glow-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+        .glow-text-magenta {
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+        }
+        .glass-card {
+            background: rgba(16, 20, 30, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 41, 61, 0.8);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+        .gradient-border {
+            position: relative;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #00f0ff, #ff0055);
+            padding: 1px;
+        }
+        .gradient-border-inner {
+            background: #08090d;
+            border-radius: calc(0.75rem - 1px);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-gray-200 font-sans selection:bg-cyber-cyan selection:text-black min-h-screen relative overflow-x-hidden">
+
+    <!-- Reading Progress Bar -->
+    <div id="progressBar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta z-50 transition-all duration-150" style="width: 0%;"></div>
+
+    <!-- Background Ambient Grid & Glows -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyber-cyan rounded-full filter blur-[150px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyber-magenta rounded-full filter blur-[150px]"></div>
+        <div class="w-full h-full" style="background-image: radial-gradient(#1f293d 1px, transparent 1px); background-size: 30px 30px;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Top Navigation / Bar -->
+        <header class="flex justify-between items-center py-4 mb-8 border-b border-cyber-border/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-magenta p-[1px] flex items-center justify-center">
+                    <div class="w-full h-full bg-cyber-dark rounded-[7px] flex items-center justify-center">
+                        <i class="fa-solid font-bold text-cyber-cyan fa-gamepad text-lg"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-orbitron font-bold text-lg tracking-wider text-white">SWEENEY<span class="text-cyber-cyan">HUB</span></span>
+                    <span class="text-xs text-gray-400 block tracking-widest font-rajdhani uppercase">Kewirausahaan 1 Blog</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="likeBtn" onclick="toggleLike()" class="px-4 py-2 rounded-full border border-cyber-border bg-cyber-card hover:border-cyber-magenta transition-all duration-300 flex items-center gap-2 text-sm font-semibold">
+                    <i id="likeIcon" class="fa-regular fa-heart text-cyber-magenta"></i>
+                    <span id="likeCount">142</span> <span class="hidden sm:inline">Suka</span>
+                </button>
+                <button onclick="copyArticleLink()" class="p-2.5 rounded-full border border-cyber-border bg-cyber-card hover:border-cyber-cyan text-cyber-cyan transition-all duration-300" title="Bagikan Artikel">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyber-purple/20 border border-cyber-purple/50 text-cyber-cyan text-xs font-semibold uppercase tracking-widest mb-4">
+                <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span>
+                Tugas Perencanaan Bisnis & Wirausaha
+            </div>
+            
+            <h1 class="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
+                Perencanaan Bisnis Kewirausahaan: <span class="bg-gradient-to-r from-cyber-cyan via-purple-400 to-cyber-magenta bg-clip-text text-transparent">Warnet Gaming RTX 5070 & PS5 Lounge</span>
+            </h1>
+
+            <!-- Author & Article Metadata -->
+            <div class="flex flex-wrap items-center gap-6 p-4 rounded-xl bg-cyber-card/80 border border-cyber-border text-sm mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyber-cyan to-cyber-magenta flex items-center justify-center font-bold text-black font-orbitron">
+                        MP
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Maheswara Putratama</p>
+                        <p class="text-xs text-gray-400">NIM: 20230801289</p>
+                    </div>
+                </div>
+                <div class="h-8 w-[1px] bg-cyber-border hidden sm:block"></div>
+                <div>
+                    <p class="text-xs text-gray-400">Tanggal Publikasi</p>
+                    <p class="text-white font-medium"><i class="fa-regular fa-calendar-check text-cyber-cyan mr-1.5"></i> Oktober 2026</p>
+                </div>
+                <div class="h-8 w-[1px] bg-cyber-border hidden sm:block"></div>
+                <div>
+                    <p class="text-xs text-gray-400">Mata Kuliah</p>
+                    <span class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-cyber-magenta/10 text-cyber-magenta border border-cyber-magenta/30 mt-0.5">
+                        Kewirausahaan 1
+                    </span>
+                </div>
+            </div>
+
+            <!-- Featured Image (warnet.png) -->
+            <div class="relative rounded-2xl overflow-hidden border border-cyber-border group shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-t from-cyber-dark via-transparent to-transparent z-10 opacity-80"></div>
+                <img src="warnet.png" alt="Sweeney Gaming Hub Warnet Gaming dan PS5" class="w-full h-[320px] sm:h-[420px] object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80';"/>
+                <div class="absolute bottom-4 left-4 right-4 z-20 flex justify-between items-end">
+                    <div>
+                        <span class="text-xs uppercase font-rajdhani tracking-widest text-cyber-cyan font-bold">Concept & Ambience</span>
+                        <h3 class="text-white font-orbitron text-xl font-bold">Sweeney Gaming Hub</h3>
+                    </div>
+                    <span class="text-xs text-gray-400 bg-cyber-dark/80 px-3 py-1 rounded-md border border-cyber-border backdrop-blur">
+                        <i class="fa-solid fa-cloud text-cyber-cyan mr-1"></i> 
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Bisnis Section -->
+        <article class="prose prose-invert max-w-none mb-14">
+            <div class="glass-card p-6 sm:p-8 rounded-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-cyber-cyan/5 rounded-full filter blur-2xl"></div>
+                <h2 class="font-orbitron text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i class="fa-solid fa-rocket text-cyber-cyan"></i> Ide Bisnis Kewirausahaan: Sweeney Gaming Hub
+                </h2>
+                <p class="text-gray-300 leading-relaxed text-base sm:text-lg mb-4">
+                    <strong class="text-cyber-cyan">Sweeney Gaming Hub</strong> diciptakan sebagai gagasan bisnis wirausaha modern yang menggabungkan performa <em class="text-white">PC eSports Ultra High-End</em> dan <em class="text-white">Console Lounge PlayStation 5</em> dengan konsep kenyamanan gaya hidup terkini.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    Seluruh area arena dirancang khusus dengan kualifikasi <strong class="text-cyber-magenta">Vape Only (Vape-Friendly Room)</strong> yang ditunjang dengan sistem *exhaust air purification & filtration heavy-duty*, sehingga para gamer bebas bervape ria tanpa mengorbankan kualitas udara maupun kebersihan komponen PC & console.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="p-4 bg-cyber-card rounded-xl border border-cyber-cyan/30">
+                        <h4 class="font-orbitron text-sm font-bold text-cyber-cyan mb-2"><i class="fa-solid fa-microchip mr-2"></i>Spesifikasi PC Flagship</h4>
+                        <p class="text-xs text-gray-300">Intel Core i7-14700KF, NVIDIA GeForce RTX 5070, RAM 32GB DDR5, dan Monitor Esports 320Hz untuk kenyamanan respon visual tanpa kompromi.</p>
+                    </div>
+                    <div class="p-4 bg-cyber-card rounded-xl border border-cyber-magenta/30">
+                        <h4 class="font-orbitron text-sm font-bold text-cyber-magenta mb-2"><i class="fa-solid fa-cloud mr-2"></i>Lingkungan Vape-Friendly</h4>
+                        <p class="text-xs text-gray-300">Ruangan full AC berteknologi *negative pressure air exhaust* khusus vape asap tebal, membuat ruangan selalu segar dan bebas resiko embun uap likuid.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Interaktif Filter / Navigasi Aspek Kewirausahaan -->
+        <section class="mb-14">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="font-orbitron text-2xl font-bold text-white">5 Pilar Perencanaan Operasional Bisnis</h2>
+                    <p class="text-sm text-gray-400">Penerapan ilmu Kewirausahaan 1 dalam eksekusi proyek usaha</p>
+                </div>
+                <!-- Quick Filter -->
+                <div class="flex flex-wrap gap-2" id="aspectFilter">
+                    <button onclick="filterAspect('all')" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyber-cyan text-black border border-cyber-cyan transition-all">Semua</button>
+                    <button onclick="filterAspect('hardware')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyber-card text-gray-300 border border-cyber-border hover:border-cyber-cyan transition-all">Hardware & Fasilitas</button>
+                    <button onclick="filterAspect('process')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyber-card text-gray-300 border border-cyber-border hover:border-cyber-cyan transition-all">Proses & Tata Letak</button>
+                </div>
+            </div>
+
+            <!-- Grid 5 Aspek Management Wirausaha -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Aspek 1 -->
+                <div class="aspect-card glass-card p-6 rounded-2xl transition-all duration-300 relative group" data-category="hardware">
+                    <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <span class="text-xs font-bold text-cyber-cyan uppercase tracking-wider font-rajdhani">Pilar 01</span>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Perancangan Barang & Jasa</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-cyan text-xs mt-1"></i>
+                            <span><strong>PC Gaming Station:</strong> Intel Core i7-14700KF, GPU RTX 5070, RAM 32GB DDR5, & Monitor Fast-IPS 320Hz.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-cyan text-xs mt-1"></i>
+                            <span><strong>PS5 Couch Lounge:</strong> Booth private TV 4K HDR 65 inci, Controller DualSense, dan game kompetitif AAA terbaru.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-cyan text-xs mt-1"></i>
+                            
+                    </ul>
+                </div>
+
+                <!-- Aspek 2 -->
+                <div class="aspect-card glass-card p-6 rounded-2xl transition-all duration-300 relative group" data-category="hardware">
+                    <div class="w-12 h-12 rounded-xl bg-cyber-magenta/10 border border-cyber-magenta/30 flex items-center justify-center text-cyber-magenta text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <span class="text-xs font-bold text-cyber-magenta uppercase tracking-wider font-rajdhani">Pilar 02</span>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Manajemen Lingkungan & Kualitas</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-magenta text-xs mt-1"></i>
+                            <span><strong>Vape Only Zone:</strong> Dilarang merokok rokok konvensional (bebas abu & bau tembakau menyengat).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-magenta text-xs mt-1"></i>
+                            <span><strong>Sistem Filtrasi Udara:</strong> Blower exhaust industri & HEPA Filter penyerap uap vape agar komponen PC tidak berembun.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-magenta text-xs mt-1"></i>
+                            <span><strong>Hygiene Standard:</strong> Pembersihan rutin monitor 320Hz, keyboard, mouse, & stik PS5 dengan pembersih anti-residu.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Aspek 3 -->
+                <div class="aspect-card glass-card p-6 rounded-2xl transition-all duration-300 relative group" data-category="process">
+                    <div class="w-12 h-12 rounded-xl bg-cyber-purple/20 border border-cyber-purple/50 flex items-center justify-center text-purple-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <span class="text-xs font-bold text-purple-400 uppercase tracking-wider font-rajdhani">Pilar 03</span>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Proses & Kapasitas Bisnis</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-purple-400 text-xs mt-1"></i>
+                            <span><strong>Sistem Billing Terpadu:</strong> Self-service billing terintegrasi QRIS & E-Wallet langsung dari layar desktop PC.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-purple-400 text-xs mt-1"></i>
+                            <span><strong>Kapasitas Optimal:</strong> 30 Unit PC High-End RTX 5070, 6 Booth PS5 Lounge, & VIP Squad Room.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-purple-400 text-xs mt-1"></i>
+                            <span><strong>Strategi Jam Sibuk:</strong> Paket malam *Vape & Game All-Night* (23.00 - 06.00) untuk memaksimalkan okupansi.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Aspek 4 -->
+                <div class="aspect-card glass-card p-6 rounded-2xl transition-all duration-300 relative group" data-category="process">
+                    <div class="w-12 h-12 rounded-xl bg-cyber-neonGreen/10 border border-cyber-neonGreen/30 flex items-center justify-center text-cyber-neonGreen text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <span class="text-xs font-bold text-cyber-neonGreen uppercase tracking-wider font-rajdhani">Pilar 04</span>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Tata Letak & Tata Ruang</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-neonGreen text-xs mt-1"></i>
+                            <span><strong>Layout Airflow Minimalis:</strong> Posisi duduk disusun mendukung sirkulasi *exhaust airflow* langsung menyedot uap vape ke atas.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-neonGreen text-xs mt-1"></i>
+                            <span><strong>Zonasi Konsol & PC:</strong> Separasi akustik audio TV PS5 agar tidak mengganggu pemain PC kompetitif.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-cyber-neonGreen text-xs mt-1"></i>
+                            <span><strong>Sirkulasi Luas:</strong> Jarak antar meja minimal 1.3 meter agar pergerakan pelanggan dan staf terasa lapang.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Aspek 5 (Full Width on Grid) -->
+                <div class="aspect-card glass-card p-6 rounded-2xl transition-all duration-300 relative group md:col-span-2" data-category="process">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-yellow-400 uppercase tracking-wider font-rajdhani">Pilar 05</span>
+                            <h3 class="font-orbitron text-xl font-bold text-white">Pemeliharaan Perangkat & Aset</h3>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-300 mt-2">
+                        <div class="p-3 bg-cyber-dark/60 rounded-xl border border-cyber-border">
+                            <p class="font-bold text-white mb-1"><i class="fa-solid fa-microchip text-cyber-cyan mr-1"></i> Anti-Dust & Vapor Care</p>
+                            <p class="text-xs text-gray-400">Pembersihan filter debu & casing PC bertutup akrilik sealed rapat agar residu likuid tidak menempel pada GPU RTX 5070.</p>
+                        </div>
+                        <div class="p-3 bg-cyber-dark/60 rounded-xl border border-cyber-border">
+                            <p class="font-bold text-white mb-1"><i class="fa-solid fa-server text-cyber-magenta mr-1"></i> Server Diskless & Monitor</p>
+                            <p class="text-xs text-gray-400">Sistem Server Diskless Gigabit dengan pembaruan *auto-update* game, serta re-kalibrasi warna monitor 320Hz berkala.</p>
+                        </div>
+                        <div class="p-3 bg-cyber-dark/60 rounded-xl border border-cyber-border">
+                            <p class="font-bold text-white mb-1"><i class="fa-solid fa-fan text-purple-400 mr-1"></i> Servis Exhaust & AC</p>
+                            <p class="text-xs text-gray-400">Pembersihan turbin exhaust fan dan servis AC bulanan untuk menjaga ruangan tetap dingin & bebas embun.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Revenue Simulator Calculator -->
+        <section class="mb-14">
+            <div class="gradient-border">
+                <div class="gradient-border-inner p-6 sm:p-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-xs font-bold text-cyber-cyan uppercase tracking-widest font-rajdhani"><i class="fa-solid fa-calculator mr-1"></i> Simulasi Bisnis Kewirausahaan</span>
+                            <h2 class="font-orbitron text-2xl font-bold text-white">Kalkulasi Pendapatan Operasional</h2>
+                        </div>
+                        <div class="text-xs text-gray-400 bg-cyber-card px-3 py-1.5 rounded-lg border border-cyber-border">
+                            PC RTX 5070 (320Hz) & PS5 Lounge
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <!-- Input Parameters -->
+                        <div class="lg:col-span-7 space-y-4">
+                            <!-- Input PC RTX 5070 -->
+                            <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border">
+                                <h4 class="font-bold text-white text-sm mb-3 flex items-center justify-between">
+                                    <span><i class="fa-solid fa-desktop text-cyber-cyan mr-2"></i>PC RTX 5070 (320Hz Monitor)</span>
+                                    <span id="pcUnitVal" class="text-cyber-cyan font-orbitron">30 Unit</span>
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                    <div>
+                                        <label class="text-gray-400 block mb-1">Rata-rata Jam Pakai / Hari</label>
+                                        <input type="range" id="pcHours" min="2" max="18" value="10" oninput="calculateRevenue()" class="w-full accent-cyber-cyan">
+                                        <span id="pcHoursVal" class="text-gray-300 font-semibold mt-1 block">10 Jam / Hari</span>
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-400 block mb-1">Tarif PC (Rp / Jam)</label>
+                                        <input type="number" id="pcRate" value="10000" step="1000" oninput="calculateRevenue()" class="w-full bg-cyber-dark border border-cyber-border rounded px-2.5 py-1 text-white focus:outline-none focus:border-cyber-cyan">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Input PS5 -->
+                            <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border">
+                                <h4 class="font-bold text-white text-sm mb-3 flex items-center justify-between">
+                                    <span><i class="fa-solid fa-gamepad text-cyber-magenta mr-2"></i>Unit Booth PS5</span>
+                                    <span id="ps5UnitVal" class="text-cyber-magenta font-orbitron">6 Unit</span>
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                    <div>
+                                        <label class="text-gray-400 block mb-1">Rata-rata Jam Pakai / Hari</label>
+                                        <input type="range" id="ps5Hours" min="2" max="18" value="8" oninput="calculateRevenue()" class="w-full accent-cyber-magenta">
+                                        <span id="ps5HoursVal" class="text-gray-300 font-semibold mt-1 block">8 Jam / Hari</span>
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-400 block mb-1">Tarif PS5 (Rp / Jam)</label>
+                                        <input type="number" id="ps5Rate" value="25000" step="1000" oninput="calculateRevenue()" class="w-full bg-cyber-dark border border-cyber-border rounded px-2.5 py-1 text-white focus:outline-none focus:border-cyber-magenta">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calculation Output -->
+                        <div class="lg:col-span-5 bg-cyber-dark/80 p-5 rounded-xl border border-cyber-border flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-xs uppercase font-rajdhani tracking-widest text-gray-400 mb-2">Proyeksi Gross Revenue</h4>
+                                <div class="text-2xl font-black font-orbitron text-cyber-neonGreen mb-4" id="totalDailyRev">
+                                    Rp 4.200.000 <span class="text-xs font-sans text-gray-400 font-normal">/ Hari</span>
+                                </div>
+
+                                <div class="space-y-2 text-xs border-t border-cyber-border pt-3">
+                                    <div class="flex justify-between text-gray-300">
+                                        <span>Pendapatan PC i7 + RTX 5070:</span>
+                                        <span id="pcSubtotal" class="font-semibold text-cyber-cyan">Rp 3.000.000</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-300">
+                                        <span>Pendapatan PS5 Lounge:</span>
+                                        <span id="ps5Subtotal" class="font-semibold text-cyber-magenta">Rp 1.200.000</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-300 pt-2 border-t border-cyber-border/40">
+                                        <span>Est. Bulanan (30 Hari):</span>
+                                        <span id="monthlyRev" class="font-bold text-white">Rp 126.000.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-t border-cyber-border/40 text-[11px] text-gray-400 italic">
+                                *Proyeksi belum termasuk penjualan makanan dan minuman (+20-30%).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KPI Operational Matrix Table -->
+        <section class="mb-14">
+            <h2 class="font-orbitron text-2xl font-bold text-white mb-2">Matriks Indikator Kinerja (KPI Wirausaha)</h2>
+            <p class="text-sm text-gray-400 mb-6">Target kualitas dan operasional Sweeney Gaming Hub - Kewirausahaan 1</p>
+
+            <div class="overflow-x-auto glass-card rounded-2xl border border-cyber-border">
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-cyber-card/90 text-xs uppercase font-orbitron text-cyber-cyan border-b border-cyber-border">
+                        <tr>
+                            <th class="py-4 px-6">Pilar Wirausaha</th>
+                            <th class="py-4 px-6">Spesifikasi & Konsep</th>
+                            <th class="py-4 px-6">Target Kinerja / KPI</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-cyber-border">
+                        <tr class="hover:bg-cyber-card/40 transition-colors">
+                            <td class="py-4 px-6 font-semibold text-white">Perangkat Gaming</td>
+                            <td class="py-4 px-6">Core i7-14700KF, RTX 5070, 32GB RAM, Monitor 320Hz</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/20">CSAT Score &gt; 4.9/5.0</span></td>
+                        </tr>
+                        <tr class="hover:bg-cyber-card/40 transition-colors">
+                            <td class="py-4 px-6 font-semibold text-white">Kualitas Ruangan</td>
+                            <td class="py-4 px-6">Area khusus Vape Only dengan Exhaust Blower Industri</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-cyber-neonGreen/10 text-cyber-neonGreen border border-cyber-neonGreen/20">Air Exchange 12x/Jam</span></td>
+                        </tr>
+                        <tr class="hover:bg-cyber-card/40 transition-colors">
+                            <td class="py-4 px-6 font-semibold text-white">Proses Billing</td>
+                            <td class="py-4 px-6">Automated Billing QRIS & E-Wallet mandiri</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Okupansi Harian &gt; 75%</span></td>
+                        </tr>
+                        <tr class="hover:bg-cyber-card/40 transition-colors">
+                            <td class="py-4 px-6 font-semibold text-white">Tata Letak & Kenyamanan</td>
+                            <td class="py-4 px-6">Jarak meja 1.3m & zonasi kedap suara PS5 vs PC</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">Respons Layanan &lt; 3 Mnt</span></td>
+                        </tr>
+                        <tr class="hover:bg-cyber-card/40 transition-colors">
+                            <td class="py-4 px-6 font-semibold text-white">Maintenance Perangkat</td>
+                            <td class="py-4 px-6">Perawatan anti-residu vape & pembersihan dust filter PC</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-cyber-magenta/10 text-cyber-magenta border border-cyber-magenta/20">Zero Component Corrosion</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-cyber-border/80 pt-8 pb-12 text-center text-xs text-gray-500">
+            <div class="flex justify-center items-center gap-2 mb-3">
+                <span class="font-orbitron font-bold text-sm text-white">SWEENEY<span class="text-cyber-cyan">HUB</span></span>
+            </div>
+            <p class="mb-2">Tugas Kewirausahaan 1 © 2026 - Maheswara Putratama (NIM: 20230801289)</p>
+            <p class="text-gray-600">Dibuat sebagai dokumen proyek perencanaan bisnis hiburan digital.</p>
+        </footer>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-cyber-card border border-cyber-cyan text-white px-4 py-3 rounded-xl shadow-neon-cyan transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-cyber-cyan text-lg"></i>
+        <span id="toastMsg" class="text-xs font-semibold">Pesan Notifikasi</span>
+    </div>
+
+    <!-- Javascript Logical Code -->
+    <script>
+        // Progress Bar Scroll
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Like Counter
+        let liked = false;
+        let likes = 142;
+        function toggleLike() {
+            const likeBtn = document.getElementById('likeBtn');
+            const likeIcon = document.getElementById('likeIcon');
+            const likeCount = document.getElementById('likeCount');
+            
+            if(!liked) {
+                likes++;
+                likeIcon.classList.remove('fa-regular');
+                likeIcon.classList.add('fa-solid');
+                likeBtn.classList.add('border-cyber-magenta', 'bg-cyber-magenta/10');
+                liked = true;
+                showToast("Terima kasih atas apresiasinya!");
+            } else {
+                likes--;
+                likeIcon.classList.remove('fa-solid');
+                likeIcon.classList.add('fa-regular');
+                likeBtn.classList.remove('border-cyber-magenta', 'bg-cyber-magenta/10');
+                liked = false;
+            }
+            likeCount.innerText = likes;
+        }
+
+        // Copy Article Link
+        function copyArticleLink() {
+            const tempInput = document.createElement('input');
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast("Link blog berhasil disalin!");
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Filter Aspect Cards
+        function filterAspect(category) {
+            const cards = document.querySelectorAll('.aspect-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cyber-cyan', 'text-black');
+                btn.classList.add('bg-cyber-card', 'text-gray-300');
+            });
+            event.target.classList.remove('bg-cyber-card', 'text-gray-300');
+            event.target.classList.add('bg-cyber-cyan', 'text-black');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Calculator Revenue Logic
+        function calculateRevenue() {
+            const pcUnits = 30;
+            const pcHours = parseInt(document.getElementById('pcHours').value);
+            const pcRate = parseInt(document.getElementById('pcRate').value) || 0;
+
+            const ps5Units = 6;
+            const ps5Hours = parseInt(document.getElementById('ps5Hours').value);
+            const ps5Rate = parseInt(document.getElementById('ps5Rate').value) || 0;
+
+            // Labels update
+            document.getElementById('pcHoursVal').innerText = pcHours + " Jam / Hari";
+            document.getElementById('ps5HoursVal').innerText = ps5Hours + " Jam / Hari";
+
+            // Calculation
+            const pcDaily = pcUnits * pcHours * pcRate;
+            const ps5Daily = ps5Units * ps5Hours * ps5Rate;
+            const totalDaily = pcDaily + ps5Daily;
+            const totalMonthly = totalDaily * 30;
+
+            // Format Currency
+            const formatIDR = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+
+            document.getElementById('pcSubtotal').innerText = formatIDR(pcDaily);
+            document.getElementById('ps5Subtotal').innerText = formatIDR(ps5Daily);
+            document.getElementById('totalDailyRev').innerHTML = `${formatIDR(totalDaily)} <span class="text-xs font-sans text-gray-400 font-normal">/ Hari</span>`;
+            document.getElementById('monthlyRev').innerText = formatIDR(totalMonthly);
+        }
+
+        // Initial Calculation on load
+        calculateRevenue();
+    </script>
+</body>
+</html>
